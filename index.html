@@ -28,7 +28,7 @@
             <div class="container">
                 <h1 id="search_bar_title" style="font-weight: 900;">Book美: 책의 아름다움</h1>
                 <div id="search_bar_container" class="d-flex align-items-center">
-                    <input type="text" class="form-control" id="task-input" placeholder="책 이름 검색">
+                    <input type="text" class="form-control" id="search_input" placeholder="책 이름 검색">
                     <button type="button" id="btn_serach" class="btn btn-primary ms-2 text-nowrap">
                         <i class="bi bi-search me-1"></i>검색
                     </button>
@@ -234,6 +234,13 @@
 
                     reportList.appendChild(div1);
                 });
+
+                let btn_serach = document.querySelector("#btn_serach");
+                let search_bar = document.querySelector("#search_input");
+                btn_serach.addEventListener("click", () => {
+                    localStorage.setItem('search_keyword', search_bar.value);
+                    window.location.href = './kakao.html';
+                })
             });
         </script>
     </body>
