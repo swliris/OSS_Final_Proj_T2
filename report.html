@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+
+        <link rel="stylesheet" href="style_report.css">
+        <link rel="icon" href="./source/favicon.ico" type="image/x-icon" sizes="16x16">
+
+        <title>북미</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container">
+                <span class="navbar-brand mb-0 h1" style="font-size: 2em; font-weight: 900;"><i class="bi bi-book"></i> 북미</span>
+            </div>
+        </nav>
+
+        <div class="container">
+            <p class="h1 my-5">독서기록장 작성하기</p>
+        </div>
+
+        <div class="container">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="report_writing_title_label">책 제목</span>
+                <input type="text" id="report_writing_title" class="form-control" placeholder="제목을 입력하세요" aria-label="제목을 입력하세요" aria-describedby="report_writing_title_label">
+            </div>
+            <div class="input-group">
+                <span class="input-group-text">내용</span>
+                <textarea id="report_writing_content" class="form-control" aria-label="내용" rows="20"></textarea>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="d-flex justify-content-between">
+                <span></span>
+                <button type="button" id="btn_save" class="btn btn-primary text-nowrap justify-content-end">
+                    <i class="bi bi-save me-1"></i>저장
+                </button>
+            </div>
+        </div>
+        
+        <script>
+
+            let btn = document.querySelector("#btn_save");
+            let reports = [];
+
+            btn.addEventListener("click", () => {
+                let input_title = document.querySelector("#report_writing_title");
+                let input_content = document.querySelector("#report_writing_content");
+
+                let today = new Date();
+
+                let now_date = today.getFullYear() + ". " +
+                            (today.getMonth() + 1) + ". " + today.getDate() + ".";
+
+                let report = {
+                    title: input_title.value,
+                    date: now_date,
+                    content: input_content.value
+                };
+
+                let prev = JSON.parse(localStorage.getItem("reports"));
+                if(prev) {
+                    prev.forEach(element => {
+                        reports.push(element);
+                    });
+                }
+                
+                reports.push(report);
+
+                localStorage.setItem("reports", JSON.stringify(reports));
+                
+                window.location.href = './index.html';
+            });
+
+        </script>
+    </body>
+</html>

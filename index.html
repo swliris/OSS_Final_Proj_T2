@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
 
         <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="./source/favicon.ico" type="image/x-icon" sizes="16x16">
         
         <title>북미</title>
     </head>
@@ -18,7 +19,7 @@
         <!-- NAVVAR -->
         <nav class="navbar navbar-light bg-light">
             <div class="container">
-                <span class="navbar-brand mb-0 h1" style="font-size: 2em;"><i class="bi bi-book"></i> 북미</span>
+                <span class="navbar-brand mb-0 h1" style="font-size: 2em; font-weight: 900;"><i class="bi bi-book"></i> 북미</span>
             </div>
         </nav>
 
@@ -129,33 +130,13 @@
                 </div>
             </div>
             <p class="h3 my-3">자연과학</p>
-            <div class="horizontal-scroll-wrapper">
-                <div class="recommend_item shadow-sm">
-                    <p>1.<br>아아</p>
-                </div>
-                <div class="recommend_item shadow-sm">
-                    <p>1.<br>아아</p>
-                </div>
-                <div class="recommend_item shadow-sm">
-                    <p>1.<br>아아</p>
-                </div>
-                <div class="recommend_item shadow-sm">
-                    <p>1.<br>아아</p>
-                </div>
-                <div class="recommend_item shadow-sm">
-                    <p>1.<br>아아</p>
-                </div>
-                <div class="recommend_item shadow-sm">
-                    <p>1.<br>아아</p>
-                </div>
-                <div class="recommend_item shadow-sm">
-                    <p>1.<br>아아</p>
-                </div>
-                <div class="recommend_item shadow-sm">
-                    <p>1.<br>아아</p>
-                </div>
-                <div class="recommend_item shadow-sm">
-                    <p>1.<br>아아</p>
+            <div class="horizontal-scroll-wrapper"> 
+                <div class="card recommend_item" style="width: 18rem;">
+                    <img src="https://cdn.imweb.me/upload/S20200903356594b8dc821/691fca57291e9.jpg" class="card-img-top" alt="miffy">
+                    <div class="card-body">
+                      <h5 class="card-title">책 제목</h5>
+                      <p class="card-text">책 소개</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -163,42 +144,14 @@
         <div id="report_container" class="container">
             <div class="d-flex justify-content-between">
                 <p class="h1 mt-5">나의 독서기록장 ></p>
-                <button type="button" id="add" class="mt-5 btn btn-primary text-nowrap justify-content-end">
+                <button type="button" id="add" class="mt-5 btn btn-primary text-nowrap justify-content-end"
+                        onclick="location.href='./report.html';">
                     <i class="bi bi-plus me-1"></i>독서기록장 추가
                 </button>
             </div>
             
             <!-- 독서기록장에 들어가는 필드: 제목, 표지?, 작성일자, 내용 -->
-            <div class="row g-4 py-3 row-cols-1 row-cols-lg-2">
-                <div class="report col p-3">
-                    <div class="d-flex justify-content-between border-bottom mb-3">
-                        <p class="report_title h4">책 제목</p>
-                        <p class="report_date justify-content-end">2022. 5. 21.</p>
-                    </div>
-                    <p class="report_content">독서기록장 내용<br>그래<br>줄이 바뀌었어요</p>
-                </div>
-                <div class="report col p-3">
-                    <div class="d-flex justify-content-between border-bottom mb-3">
-                        <p class="report_title h4">책 제목</p>
-                        <p class="report_date justify-content-end">2022. 5. 22.</p>
-                    </div>
-                    <p class="report_content">독서기록장 내용</p>
-                </div>
-                <div class="report col p-3">
-                    <div class="d-flex justify-content-between border-bottom mb-3">
-                        <p class="report_title h4">책 제목</p>
-                        <p class="report_date justify-content-end">2022. 5. 23.</p>
-                    </div>
-                    <p class="report_content">독서기록장 내용<br>하하</p>
-                </div>
-                <div class="report col p-3">
-                    <div class="d-flex justify-content-between border-bottom mb-3">
-                        <p class="report_title h4">책 제목</p>
-                        <p class="report_date justify-content-end">2022. 5. 24.</p>
-                    </div>
-                    <p class="report_content">하루에 하나씩 쓰는<br>나의 독서기록장<br>아주 성실해요!!</p>
-                </div>
-            </div>
+            <div id="report_list" class="row g-4 py-3 row-cols-1 row-cols-lg-2"></div>
         </div>
 
         <!-- FOOTER -->
@@ -208,7 +161,7 @@
                   <a href="" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
                       <i class="bi bi-book" style="font-size: 2em;"></i>
                   </a>
-                  <span class="mb-3 mb-md-0 text-muted">© 2022 Lim Sungwoo, Chae Siheon, Choi Junghyun</span>
+                  <span class="mb-3 mb-md-0 text-muted">© 2022 Lim Sungwoo, Chae Siheon, Choi Junghyeon</span>
                 </div>
 
                 <div class="nav col-md-4 justify-content-end list-unstyled d-flex">
@@ -218,5 +171,70 @@
                 </div>
               </footer>
         </div>
+
+        <script>
+            window.addEventListener("load", () => {
+                let lastReports = localStorage.getItem("reports");
+                if(!lastReports) {
+                    let no_report = document.createElement("p");
+                    no_report.classList = "my-5";
+                    no_report.textContent = "등록된 독서기록장이 없습니다. 오른쪽 위 버튼을 눌러 첫 기록장을 작성해 보세요!";
+                    document.querySelector("#report_list").appendChild(no_report);
+
+                    return;
+                }
+
+                let report = JSON.parse(lastReports);
+                console.log(report);
+
+                let reportList = document.querySelector("#report_list");
+
+                report.forEach(element => {
+                    let div1 = document.createElement("div");
+                    div1.classList = "report col p-3";
+
+                    let div2 = document.createElement("div");
+                    div2.classList = "d-flex justify-content-between border-bottom mb-3";
+
+                    let div3 = document.createElement("div");
+                    div3.classList = "d-flex";
+
+                    let p1 = document.createElement("p");
+                    p1.classList = "report_title h4";
+                    p1.textContent = element.title;
+
+                    let button = document.createElement("button");
+                    button.classList = "text-decoration-none btn btn_remove";
+
+                    let i = document.createElement("i");
+                    i.classList = "bi bi-trash"
+
+                    let p2 = document.createElement("p");
+                    p2.classList = "report_date justify-content-end";
+                    p2.textContent = element.date;
+
+                    let p3 = document.createElement("p");
+                    p3.classList = "report_content";
+                    p3.textContent = element.content;
+
+                    button.appendChild(i);
+                    div3.appendChild(p1);
+                    div3.appendChild(button);
+                    div2.appendChild(div3);
+                    div2.appendChild(p2);
+                    div1.appendChild(div2);
+                    div1.appendChild(p3);
+
+                    button.addEventListener("click", () => {
+                        div1.remove();
+
+                        report = report.filter(r => r !== element);
+                        localStorage.setItem("reports", JSON.stringify(report));
+                    })
+
+                    reportList.appendChild(div1);
+                });
+            });
+        </script>
     </body>
 </html>
