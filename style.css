@@ -1,0 +1,96 @@
+@font-face {
+    font-family: 'IBMPlexSansKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'IBMPlexSansKR-Regular', sans-serif;
+}
+
+html, body {
+    width: 100%;
+    height: 100%
+}
+
+#search_container {
+    height: 40%;
+    background-image: url("./source/library.jpg");
+    background-size: cover;
+
+    position: relative;
+}
+
+#search_bar_container {
+    width: 60%;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#recommend_container {
+    width: 100%;
+
+    animation-duration: 1s;
+    animation-name: animation1;
+}
+
+@keyframes animation1 {
+    from {
+        opacity: 0.0;
+    }
+    to {
+        opacity: 1.0;
+    }
+}
+
+.horizontal-scroll-wrapper {
+    overflow: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.horizontal-scroll-wrapper > div {
+    background-color: aliceblue;
+
+    display: inline-block;
+
+    width: 210px;
+    height: 280px;
+
+    margin: 5px;
+}
+
+.recommend_item {
+    background-image: url("https://cdn.imweb.me/upload/S20200903356594b8dc821/691fca57291e9.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.recommend_item > p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 5px;
+
+    background-color: #ffffff99;
+    box-shadow: 0px 0px px #ffffff99;
+}
+
+.h2 {
+    font-weight: bold;
+}
+
+.h3 {
+    font-weight: bold;
+}
+
+.report_content {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
