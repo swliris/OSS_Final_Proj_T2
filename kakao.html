@@ -20,13 +20,13 @@
 <body>
     <nav class="navbar navbar-light bg-light">
         <div class="container">
-            <span class="navbar-brand mb-0 h1" style="font-size: 2em; font-weight: 900;"><i class="bi bi-book"></i> 북미</span>
+            <span class="navbar-brand mb-0 h1" style="font-size: 2em; font-weight: 900;"><a href="./index.html" class="text-decoration-none text-black"><i class="bi bi-book"></i> 북미</span></a>
         </div>
     </nav>
 
     <div id="result_container" class="container">
         <div class="d-flex align-items-center my-5">
-            <input type="text" id="query" class="form-control" placeholder="책 이름 검색">
+            <input type="text" id="query" class="form-control" placeholder="책 이름 검색" autofocus>
             <button type="button" id="search" class="btn btn-primary text-nowrap ms-2">
                 <i class="bi bi-search me-1"></i>검색
             </button>
@@ -57,8 +57,36 @@
 
     <script>
         window.addEventListener("load", () => {
+            // 검색 키워드 갖고 오기
             let search_keyword = localStorage.getItem("search_keyword");
-            
+            let search_bar = document.querySelector("#query");
+            search_bar.value = search_keyword;
+
+            // 사용 후 삭제
+            localStorage.removeItem("search_keyword");
+
+            var pageNum = 1;
+
+            $("#result").html("");
+
+            $.ajax({
+                method: "GET",
+                url: "https://dapi.kakao.com/v3/search/book?target=title",
+                data: { query: $("#query").val(), page: pageNum },
+                headers: { Authorization: "KakaoAK f198d1d8b96d8e4ce4da79f58b1c6ca4" }
+
+            })
+            .done(function (msg) {
+                console.log(msg);
+                for (var i = 0; i < 10; i++) {
+                    let content = "<div class='col p-3 border-bottom'><div class='d-flex'><img class='result_image w-25' src='" + msg.documents[i].thumbnail + "'><div class='ms-3'><p class='h3'><a class='text-decoration-none text-black' href='" + msg.documents[i].url + "'>" + msg.documents[i].title + "</a></p><p>" + msg.documents[i].authors + "<br>" + msg.documents[i].publisher + "<br>" + msg.documents[i].datetime.slice(0, 4) + "</p></div></div><p class='mt-3'>" + msg.documents[i].contents;
+                    if(msg.documents[i].contents.length >= 250) {
+                        content += "...";
+                    }
+                    content += "</p></div>"
+                    $("#result").append(content);
+                }
+            });
         })
 
         $(document).ready(function () {

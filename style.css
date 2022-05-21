@@ -5,8 +5,15 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'IBMPlexSansKR-SemiBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-SemiBold.woff') format('woff');
+    font-weight: bold;
+    font-style: bold;
+}
+
 * {
-    font-family: 'IBMPlexSansKR-Regular', sans-serif;
+    font-family: 'IBMPlexSansKR', sans-serif;
 }
 
 html, body {
