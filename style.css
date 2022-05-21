@@ -17,6 +17,8 @@ html, body {
 #search_container {
     height: 40%;
     background-image: url("./source/library.jpg");
+    background-color: #00000055;
+    background-blend-mode: multiply;
     background-size: cover;
 
     position: relative;
@@ -26,10 +28,21 @@ html, body {
     width: 60%;
 
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+#search_bar_title {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    color: white;
+    font-weight: 900;
 }
 
 #recommend_container {
