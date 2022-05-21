@@ -47,6 +47,13 @@
         </div>
         
         <script>
+            window.addEventListener("load", () => {
+                let report_title = localStorage.getItem("report_title");
+                if(report_title) {
+                    document.querySelector("#report_writing_title").value = report_title;
+                    localStorage.removeItem("report_title");
+                }
+            })
 
             let btn = document.querySelector("#btn_save");
             let reports = [];

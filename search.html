@@ -1,34 +1,337 @@
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="ko">
 
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="style_search.css">
-        <link rel="icon" href="./source/favicon.ico" type="image/x-icon" sizes="16x16">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="style_search.css">
+    <link rel="icon" href="./source/favicon.ico" type="image/x-icon" sizes="16x16">
+    
+    <title>북미</title>
+</head>
 
-        <title>북미</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-light bg-light">
-            <div class="container">
-                <span class="navbar-brand mb-0 h1" style="font-size: 2em; font-weight: 900;"><i class="bi bi-book"></i> 북미</span>
-            </div>
-        </nav>
-
+<body>
+    <nav class="navbar navbar-light bg-light">
         <div class="container">
-            <div id="search_bar_container" class="d-flex align-items-center my-5">
-                <input type="text" class="form-control" id="task-input" placeholder="책 이름 검색">
-                <button type="button" id="btn_serach" class="btn btn-primary ms-2 text-nowrap">
-                    <i class="bi bi-search me-1"></i>검색
-                </button>
-            </div>
+            <span class="navbar-brand mb-0 h1" style="font-size: 2em; font-weight: 900;"><a href="./index.html" class="text-decoration-none text-black"><i class="bi bi-book"></i> 북미</span></a>
         </div>
-    </body>
+    </nav>
+
+    <div id="result_container" class="container">
+        <div class="d-flex align-items-center my-5">
+            <input type="text" id="query" class="form-control" placeholder="책 이름 검색" autofocus>
+            <button type="button" id="search" class="btn btn-primary text-nowrap ms-2">
+                <i class="bi bi-search me-1"></i>검색
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <button type="button" class="btn btn-light text-nowrap">
+            <i class="bi bi-arrow-right-circle me-2"></i>독서기록장 쓰기
+        </button>
+        <div class="row g-4 py-3 row-cols-1 row-cols-lg-2" id="result">
+
+            <!-- <div class="col p-3 border-bottom">
+                <div class="d-flex">
+                    <img class="result_image w-25" src="https://cdn.imweb.me/upload/S20200903356594b8dc821/691fca57291e9.jpg">
+                    <div class="ms-3">
+                        <p class="h2">제목</p>
+                        <p>
+                            저자<br>출판사<br>출판연도
+                        </p>
+                    </div>
+                </div>
+                <p class="mt-3">소개소개~</p>
+            </div> -->
+
+            
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script>
+        window.addEventListener("load", () => {
+            // 검색 키워드 갖고 오기
+            let search_keyword = localStorage.getItem("search_keyword");
+            let search_bar = document.querySelector("#query");
+            search_bar.value = search_keyword;
+
+            // 사용 후 삭제
+            localStorage.removeItem("search_keyword");
+
+            var pageNum = 1;
+
+            $("#result").html("");
+
+            $.ajax({
+                method: "GET",
+                url: "https://dapi.kakao.com/v3/search/book?target=title",
+                data: { query: $("#query").val(), page: pageNum },
+                headers: { Authorization: "KakaoAK f198d1d8b96d8e4ce4da79f58b1c6ca4" }
+
+            })
+            .done(function (msg) {
+                console.log(msg);
+
+                let res = document.querySelector("#result");
+
+                for (var i = 0; i < 10; i++) {
+                    let div1 = document.createElement("div");
+                    div1.classList = "col p-3 border-bottom";
+
+                    let div2 = document.createElement("div");
+                    div2.classList = "d-flex";
+                    
+                    let img = document.createElement("img");
+                    img.classList = 'result_image w-25 rounded';
+                    img.src = msg.documents[i].thumbnail;
+
+                    let div3 = document.createElement("div");
+                    div3.classList = "ms-3";
+
+                    let p1 = document.createElement("p");
+                    p1.classList = "h3";
+
+                    let a = document.createElement("a");
+                    a.classList = "text-decoration-none text-black";
+                    a.href = msg.documents[i].url;
+                    a.textContent = msg.documents[i].title;
+
+                    p1.appendChild(a);
+
+                    let p2 = document.createElement("p");
+                    p2.appendChild(document.createTextNode(msg.documents[i].authors));
+                    p2.appendChild(document.createElement("br"));
+                    p2.appendChild(document.createTextNode(msg.documents[i].publisher));
+                    p2.appendChild(document.createElement("br"));
+                    p2.appendChild(document.createTextNode(msg.documents[i].datetime.slice(0, 4)));
+
+                    let btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.classList = "btn btn-light text-nowrap";
+
+                    let icon = document.createElement("i");
+                    icon.classList = "bi bi-arrow-right-circle me-2"
+
+                    btn.appendChild(icon);
+                    btn.appendChild(document.createTextNode('독서기록장 쓰기'));
+
+                    div3.appendChild(p1);
+                    div3.appendChild(p2);
+                    div3.appendChild(btn);
+
+                    div2.appendChild(img);
+                    div2.appendChild(div3);
+
+                    let p3 = document.createElement("p");
+                    p3.classList = "mt-3";
+                    p3.textContent = msg.documents[i].contents;
+                    if(msg.documents[i].contents.length >= 250) {
+                        p3.textContent += "...";
+                    }
+
+                    div1.appendChild(div2);
+                    div1.appendChild(p3);
+
+                    res.appendChild(div1);
+                    
+                    btn.addEventListener("click", () => {
+                        localStorage.setItem("report_title", a.textContent);
+                        window.location.href = './report.html';
+                    })
+                }
+            });
+        })
+
+        $(document).ready(function () {
+            var pageNum = 1;
+
+            $("#search").click(function () {
+                $("#result").html("");
+
+                $.ajax({
+                    method: "GET",
+                    url: "https://dapi.kakao.com/v3/search/book?target=title",
+                    data: { query: $("#query").val(), page: pageNum },
+                    headers: { Authorization: "KakaoAK f198d1d8b96d8e4ce4da79f58b1c6ca4" }
+
+                })
+                .done(function (msg) {
+                    console.log(msg);
+
+                    let res = document.querySelector("#result");
+
+                    for (var i = 0; i < 10; i++) {
+                        let div1 = document.createElement("div");
+                    div1.classList = "col p-3 border-bottom";
+
+                    let div2 = document.createElement("div");
+                    div2.classList = "d-flex";
+                    
+                    let img = document.createElement("img");
+                    img.classList = 'result_image w-25 rounded';
+                    img.src = msg.documents[i].thumbnail;
+
+                    let div3 = document.createElement("div");
+                    div3.classList = "ms-3";
+
+                    let p1 = document.createElement("p");
+                    p1.classList = "h3";
+
+                    let a = document.createElement("a");
+                    a.classList = "text-decoration-none text-black";
+                    a.href = msg.documents[i].url;
+                    a.textContent = msg.documents[i].title;
+
+                    p1.appendChild(a);
+
+                    let p2 = document.createElement("p");
+                    p2.appendChild(document.createTextNode(msg.documents[i].authors));
+                    p2.appendChild(document.createElement("br"));
+                    p2.appendChild(document.createTextNode(msg.documents[i].publisher));
+                    p2.appendChild(document.createElement("br"));
+                    p2.appendChild(document.createTextNode(msg.documents[i].datetime.slice(0, 4)));
+
+                    let btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.classList = "btn btn-light text-nowrap";
+
+                    let icon = document.createElement("i");
+                    icon.classList = "bi bi-arrow-right-circle me-2"
+
+                    btn.appendChild(icon);
+                    btn.appendChild(document.createTextNode('독서기록장 쓰기'));
+
+                    div3.appendChild(p1);
+                    div3.appendChild(p2);
+                    div3.appendChild(btn);
+
+                    div2.appendChild(img);
+                    div2.appendChild(div3);
+
+                    let p3 = document.createElement("p");
+                    p3.classList = "mt-3";
+                    p3.textContent = msg.documents[i].contents;
+                    if(msg.documents[i].contents.length >= 250) {
+                        p3.textContent += "...";
+                    }
+
+                    div1.appendChild(div2);
+                    div1.appendChild(p3);
+
+                    res.appendChild(div1);
+                    
+                    btn.addEventListener("click", () => {
+                        localStorage.setItem("report_title", a.textContent);
+                        window.location.href = './report.html';
+                    })
+                    }
+                });
+            })
+
+            $(window).scroll(function () {
+
+                if (Math.ceil($(window).scrollTop()) + $(window).height() >= $(document).height()) {
+                    pageNum++;
+
+
+                    $.ajax({
+                        method: "GET",
+                        url: "https://dapi.kakao.com/v3/search/book?target=title",
+                        data: { query: $("#query").val(), page: pageNum },
+                        headers: { Authorization: "KakaoAK f198d1d8b96d8e4ce4da79f58b1c6ca4" }
+
+                    })
+                    .done(function (msg) {
+                        console.log(msg);
+
+                        let res = document.querySelector("#result");
+
+                        for (var i = 0; i < 10; i++) {
+                            let div1 = document.createElement("div");
+                    div1.classList = "col p-3 border-bottom";
+
+                    let div2 = document.createElement("div");
+                    div2.classList = "d-flex";
+                    
+                    let img = document.createElement("img");
+                    img.classList = 'result_image w-25 rounded';
+                    img.src = msg.documents[i].thumbnail;
+
+                    let div3 = document.createElement("div");
+                    div3.classList = "ms-3";
+
+                    let p1 = document.createElement("p");
+                    p1.classList = "h3";
+
+                    let a = document.createElement("a");
+                    a.classList = "text-decoration-none text-black";
+                    a.href = msg.documents[i].url;
+                    a.textContent = msg.documents[i].title;
+
+                    p1.appendChild(a);
+
+                    let p2 = document.createElement("p");
+                    p2.appendChild(document.createTextNode(msg.documents[i].authors));
+                    p2.appendChild(document.createElement("br"));
+                    p2.appendChild(document.createTextNode(msg.documents[i].publisher));
+                    p2.appendChild(document.createElement("br"));
+                    p2.appendChild(document.createTextNode(msg.documents[i].datetime.slice(0, 4)));
+
+                    let btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.classList = "btn btn-light text-nowrap";
+
+                    let icon = document.createElement("i");
+                    icon.classList = "bi bi-arrow-right-circle me-2"
+
+                    btn.appendChild(icon);
+                    btn.appendChild(document.createTextNode('독서기록장 쓰기'));
+
+                    div3.appendChild(p1);
+                    div3.appendChild(p2);
+                    div3.appendChild(btn);
+
+                    div2.appendChild(img);
+                    div2.appendChild(div3);
+
+                    let p3 = document.createElement("p");
+                    p3.classList = "mt-3";
+                    p3.textContent = msg.documents[i].contents;
+                    if(msg.documents[i].contents.length >= 250) {
+                        p3.textContent += "...";
+                    }
+
+                    div1.appendChild(div2);
+                    div1.appendChild(p3);
+
+                    res.appendChild(div1);
+                    
+                    btn.addEventListener("click", () => {
+                        localStorage.setItem("report_title", a.textContent);
+                        window.location.href = './report.html';
+                    })
+                        }
+                    });
+
+                }
+
+            });
+        })
+
+
+    </script>
+</body>
+
 </html>

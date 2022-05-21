@@ -45,8 +45,8 @@
             <p class="h3 my-3">인문과학</p>
             <div id="category2" class="horizontal-scroll-wrapper">
             </div>
-            <p id="category3" class="h3 my-3">사회과학</p>
-            <div class="horizontal-scroll-wrapper">
+            <p class="h3 my-3">사회과학</p>
+            <div id="category3" class="horizontal-scroll-wrapper">
             </div>
             <p class="h3 my-3">자연과학</p>
             <div id="category4" class="horizontal-scroll-wrapper"> 
@@ -151,7 +151,7 @@
                 let search_bar = document.querySelector("#search_input");
                 btn_serach.addEventListener("click", () => {
                     localStorage.setItem('search_keyword', search_bar.value);
-                    window.location.href = './kakao.html';
+                    window.location.href = './search.html';
                 })
             });
         </script>
@@ -168,46 +168,41 @@
             let date = ('0' + today.getDate()).slice(-2);
             today=year+month+date;
 
+            function xml2json(msg) {
+                try {
+                    var obj = {};
+                    if (msg.children.length > 0) {
+                    for (var i = 0; i < msg.children.length; i++) {
+                        var item = msg.children.item(i);
+                        var nodeName = item.nodeName;
+
+                        if (typeof (obj[nodeName]) == "undefined") {
+                        obj[nodeName] = xml2json(item);
+                        } else {
+                        if (typeof (obj[nodeName].push) == "undefined") {
+                            var old = obj[nodeName];
+
+                            obj[nodeName] = [];
+                            obj[nodeName].push(old);
+                        }
+                        obj[nodeName].push(xml2json(item));
+                        }
+                    }
+                    } else {
+                    obj = msg.textContent;
+                    }
+                    return obj;
+                    } catch (e) {
+                        console.log(e.message);
+                    }
+            }
+
             $.ajax({
                 method: "GET",
                 url: "https://cors-anyware.herokuapp.com/https://nl.go.kr/NL/search/openApi/saseoApi.do",
                 data:{key:"8af322121a7793f1d93d96885a7378f8e442413e3396f922c11d1f425932cfe6",startRowNumApi:"1",endRowNumApi:"10",start_date:"20190101",end_date:today,drCode:"11"}
                 })
                 .done(function( msg ) {
-
-                    let lit_title = new Array(); 
-                    let lit_img = new Array();
-                    let lit_author=new Array();
-                    let lit_publisher=new Array();
-                    let lit_year=new Array();
-                    function xml2json(msg) {
-                    try {
-                        var obj = {};
-                        if (msg.children.length > 0) {
-                        for (var i = 0; i < msg.children.length; i++) {
-                            var item = msg.children.item(i);
-                            var nodeName = item.nodeName;
-
-                            if (typeof (obj[nodeName]) == "undefined") {
-                            obj[nodeName] = xml2json(item);
-                            } else {
-                            if (typeof (obj[nodeName].push) == "undefined") {
-                                var old = obj[nodeName];
-
-                                obj[nodeName] = [];
-                                obj[nodeName].push(old);
-                            }
-                            obj[nodeName].push(xml2json(item));
-                            }
-                        }
-                        } else {
-                        obj = msg.textContent;
-                        }
-                        return obj;
-                        } catch (e) {
-                            console.log(e.message);
-                        }
-                    }
                     let data=xml2json(msg);
 
                     let c1 = document.querySelector("#category1");
@@ -236,12 +231,111 @@
 
                         c1.appendChild(div);
                     }
+                });
+            $.ajax({
+                method: "GET",
+                url: "https://cors-anyware.herokuapp.com/https://nl.go.kr/NL/search/openApi/saseoApi.do",
+                data:{key:"8af322121a7793f1d93d96885a7378f8e442413e3396f922c11d1f425932cfe6",startRowNumApi:"1",endRowNumApi:"10",start_date:"20190101",end_date:today,drCode:"6"}
+                })
+                .done(function( msg ) {
+                    let data=xml2json(msg);
 
-                    // console.log(data.channel.list[0].item.recomtitle);
-                    // console.log(data.channel.list[0].item.recomfilepath);
-                    // console.log(data.channel.list[0].item.recomauthor);
-                    // console.log(data.channel.list[0].item.recompublisher);
-                    // console.log(data.channel.list[0].item.publishYear);
+                    let c2 = document.querySelector("#category2");
+
+                    for(let i=0; i<data.channel.list.length; i++){
+
+                        let div = document.createElement("div");
+                        div.classList="recommend_item shadow-sm";
+                        div.style.backgroundImage = "url('"+data.channel.list[i].item.recomfilepath+"')";
+
+                        let p1 = document.createElement("p");
+
+                        let span1 = document.createElement("span");
+                        span1.textContent = data.channel.list[i].item.recomtitle + "\n";
+                        span1.classList = "h5";
+                        span1.style = "font-weight: 700;"
+
+                        let span2 = document.createElement("span");
+                        span2.textContent = data.channel.list[i].item.recomauthor + ", " + data.channel.list[i].item.recompublisher + ", " + data.channel.list[i].item.publishYear;
+                        
+                        p1.appendChild(span1);
+                        p1.appendChild(document.createElement("br"));
+                        p1.appendChild(span2);
+
+                        div.appendChild(p1);
+
+                        c2.appendChild(div);
+                    }
+                });
+            $.ajax({
+                method: "GET",
+                url: "https://cors-anyware.herokuapp.com/https://nl.go.kr/NL/search/openApi/saseoApi.do",
+                data:{key:"8af322121a7793f1d93d96885a7378f8e442413e3396f922c11d1f425932cfe6",startRowNumApi:"1",endRowNumApi:"10",start_date:"20190101",end_date:today,drCode:"5"}
+                })
+                .done(function( msg ) {
+                    let data=xml2json(msg);
+
+                    let c3 = document.querySelector("#category3");
+
+                    for(let i=0; i<data.channel.list.length; i++){
+
+                        let div = document.createElement("div");
+                        div.classList="recommend_item shadow-sm";
+                        div.style.backgroundImage = "url('"+data.channel.list[i].item.recomfilepath+"')";
+
+                        let p1 = document.createElement("p");
+
+                        let span1 = document.createElement("span");
+                        span1.textContent = data.channel.list[i].item.recomtitle + "\n";
+                        span1.classList = "h5";
+                        span1.style = "font-weight: 700;"
+
+                        let span2 = document.createElement("span");
+                        span2.textContent = data.channel.list[i].item.recomauthor + ", " + data.channel.list[i].item.recompublisher + ", " + data.channel.list[i].item.publishYear;
+                        
+                        p1.appendChild(span1);
+                        p1.appendChild(document.createElement("br"));
+                        p1.appendChild(span2);
+
+                        div.appendChild(p1);
+
+                        c3.appendChild(div);
+                    }
+                });
+            $.ajax({
+                method: "GET",
+                url: "https://cors-anyware.herokuapp.com/https://nl.go.kr/NL/search/openApi/saseoApi.do",
+                data:{key:"8af322121a7793f1d93d96885a7378f8e442413e3396f922c11d1f425932cfe6",startRowNumApi:"1",endRowNumApi:"10",start_date:"20190101",end_date:today,drCode:"4"}
+                })
+                .done(function( msg ) {
+                    let data=xml2json(msg);
+
+                    let c4 = document.querySelector("#category4");
+
+                    for(let i=0; i<data.channel.list.length; i++){
+
+                        let div = document.createElement("div");
+                        div.classList="recommend_item shadow-sm";
+                        div.style.backgroundImage = "url('"+data.channel.list[i].item.recomfilepath+"')";
+
+                        let p1 = document.createElement("p");
+
+                        let span1 = document.createElement("span");
+                        span1.textContent = data.channel.list[i].item.recomtitle + "\n";
+                        span1.classList = "h5";
+                        span1.style = "font-weight: 700;"
+
+                        let span2 = document.createElement("span");
+                        span2.textContent = data.channel.list[i].item.recomauthor + ", " + data.channel.list[i].item.recompublisher + ", " + data.channel.list[i].item.publishYear;
+                        
+                        p1.appendChild(span1);
+                        p1.appendChild(document.createElement("br"));
+                        p1.appendChild(span2);
+
+                        div.appendChild(p1);
+
+                        c4.appendChild(div);
+                    }
                 });
         </script>
     </body>
