@@ -10,10 +10,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
-    
+
     <link rel="stylesheet" href="./css/style_search.css">
-    <link rel="icon" href="./source/favicon.ico" type="image/x-icon" sizes="16x16">
-    
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="./source/fav/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./source/fav/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./source/fav/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./source/fav/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./source/fav/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./source/fav/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./source/fav/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./source/fav/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./source/fav/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./source/fav/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./source/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./source/fav/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./source/fav/favicon-16x16.png">
+    <link rel="manifest" href="./source/fav/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="./source/fav/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
     <title>북미</title>
 </head>
 
@@ -23,7 +41,7 @@
             <span class="navbar-brand mb-0 h1" style="font-size: 2em; font-weight: 900;">
                 <a href="./index.html" class="text-decoration-none text-black">
                     <i class="bi bi-book"></i> 북미</span>
-                </a>
+            </a>
         </div>
     </nav>
 
@@ -48,308 +66,161 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-        <script>
-            window.addEventListener("load", () => {
-                // 검색 키워드 갖고 오기
-                let search_keyword = localStorage.getItem("search_keyword");
-                let search_bar = document.querySelector("#query");
-                search_bar.value = search_keyword;
-    
-                // 사용 후 삭제
-                localStorage.removeItem("search_keyword");
-    
-                var pageNum = 1;
-    
+    <script>
+        // 책 항목 추가 함수
+        function addResult(msg) {
+            let res = document.querySelector("#result");
+
+            if (msg['documents'].length !== 0) {
+
+                for (var i = 0; i < 10; i++) {
+                    let div1 = document.createElement("div");
+                    div1.classList = "col p-3 border-bottom";
+
+                    let div2 = document.createElement("div");
+                    div2.classList = "d-flex";
+
+                    let img = document.createElement("img");
+                    img.classList = 'result_image w-25 rounded';
+                    img.src = msg.documents[i].thumbnail;
+
+                    let div3 = document.createElement("div");
+                    div3.classList = "ms-3";
+
+                    let p1 = document.createElement("p");
+                    p1.classList = "h3";
+
+                    let a = document.createElement("a");
+                    a.classList = "text-decoration-none text-black";
+                    a.href = msg.documents[i].url;
+                    a.textContent = msg.documents[i].title;
+                    a.target = "_blank";
+
+                    p1.appendChild(a);
+
+                    let p2 = document.createElement("p");
+                    p2.appendChild(document.createTextNode(msg.documents[i].authors));
+                    p2.appendChild(document.createElement("br"));
+                    p2.appendChild(document.createTextNode(msg.documents[i].publisher));
+                    p2.appendChild(document.createElement("br"));
+                    p2.appendChild(document.createTextNode(msg.documents[i].datetime.slice(0, 4)));
+
+                    let btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.classList = "btn btn-light text-nowrap";
+
+                    let icon = document.createElement("i");
+                    icon.classList = "bi bi-arrow-right-circle me-2"
+
+                    btn.appendChild(icon);
+                    btn.appendChild(document.createTextNode('독서기록장 쓰기'));
+
+                    div3.appendChild(p1);
+                    div3.appendChild(p2);
+                    div3.appendChild(btn);
+
+                    div2.appendChild(img);
+                    div2.appendChild(div3);
+
+                    let p3 = document.createElement("p");
+                    p3.classList = "mt-3";
+                    p3.textContent = msg.documents[i].contents;
+                    if (msg.documents[i].contents.length >= 250) {
+                        p3.textContent += "...";
+                    }
+
+                    div1.appendChild(div2);
+                    div1.appendChild(p3);
+
+                    res.appendChild(div1);
+
+                    btn.addEventListener("click", () => {
+                        localStorage.setItem("report_title", a.textContent);
+                        window.location.href = './report.html';
+                    })
+                }
+            }
+            else {
+                let p = document.createElement("p");
+                p.textContent = "검색 결과가 없습니다.";
+                p.classList = "mt-3";
+                res.appendChild(p);
+            }
+        }
+
+        window.addEventListener("load", () => {
+            // 검색 키워드 갖고 오기
+            let search_keyword = localStorage.getItem("search_keyword");
+            let search_bar = document.querySelector("#query");
+            search_bar.value = search_keyword;
+
+            // 사용 후 삭제
+            localStorage.removeItem("search_keyword");
+
+            var pageNum = 1;
+
+            $("#result").html("");
+
+            $.ajax({
+                method: "GET",
+                url: "https://dapi.kakao.com/v3/search/book?target=title",
+                data: { query: $("#query").val(), page: pageNum },
+                headers: { Authorization: "KakaoAK f198d1d8b96d8e4ce4da79f58b1c6ca4" }
+
+            })
+                .done(function (msg) {
+                    // console.log(msg);
+
+                    addResult(msg);
+                });
+        })
+
+        $(document).ready(function () {
+            var pageNum = 1;
+
+            $("#search").click(function () {
                 $("#result").html("");
-    
+
                 $.ajax({
                     method: "GET",
                     url: "https://dapi.kakao.com/v3/search/book?target=title",
                     data: { query: $("#query").val(), page: pageNum },
                     headers: { Authorization: "KakaoAK f198d1d8b96d8e4ce4da79f58b1c6ca4" }
-    
+
                 })
-                .done(function (msg) {
-                    console.log(msg);
-    
-                    let res = document.querySelector("#result");
-    
-                        if(msg['documents'].length !== 0) {
-    
-                            for (var i = 0; i < 10; i++) {
-                                let div1 = document.createElement("div");
-                            div1.classList = "col p-3 border-bottom";
-    
-                            let div2 = document.createElement("div");
-                            div2.classList = "d-flex";
-                            
-                            let img = document.createElement("img");
-                            img.classList = 'result_image w-25 rounded';
-                            img.src = msg.documents[i].thumbnail;
-    
-                            let div3 = document.createElement("div");
-                            div3.classList = "ms-3";
-    
-                            let p1 = document.createElement("p");
-                            p1.classList = "h3";
-    
-                            let a = document.createElement("a");
-                            a.classList = "text-decoration-none text-black";
-                            a.href = msg.documents[i].url;
-                            a.textContent = msg.documents[i].title;
-                            a.target = "_blank";
-    
-                            p1.appendChild(a);
-    
-                            let p2 = document.createElement("p");
-                            p2.appendChild(document.createTextNode(msg.documents[i].authors));
-                            p2.appendChild(document.createElement("br"));
-                            p2.appendChild(document.createTextNode(msg.documents[i].publisher));
-                            p2.appendChild(document.createElement("br"));
-                            p2.appendChild(document.createTextNode(msg.documents[i].datetime.slice(0, 4)));
-    
-                            let btn = document.createElement("button");
-                            btn.type = "button";
-                            btn.classList = "btn btn-light text-nowrap";
-    
-                            let icon = document.createElement("i");
-                            icon.classList = "bi bi-arrow-right-circle me-2"
-    
-                            btn.appendChild(icon);
-                            btn.appendChild(document.createTextNode('독서기록장 쓰기'));
-    
-                            div3.appendChild(p1);
-                            div3.appendChild(p2);
-                            div3.appendChild(btn);
-    
-                            div2.appendChild(img);
-                            div2.appendChild(div3);
-    
-                            let p3 = document.createElement("p");
-                            p3.classList = "mt-3";
-                            p3.textContent = msg.documents[i].contents;
-                            if(msg.documents[i].contents.length >= 250) {
-                                p3.textContent += "...";
-                            }
-    
-                            div1.appendChild(div2);
-                            div1.appendChild(p3);
-    
-                            res.appendChild(div1);
-                            
-                            btn.addEventListener("click", () => {
-                                localStorage.setItem("report_title", a.textContent);
-                                window.location.href = './report.html'; 
-                            })
-                            }
-                        }
-                        else {
-                            let p = document.createElement("p");
-                            p.textContent = "검색 결과가 없습니다.";
-                            p.classList = "mt-3";
-                            res.appendChild(p);
-                        }
-                });
+                    .done(function (msg) {
+                        // console.log(msg);
+
+                        addResult(msg);
+                    });
             })
-    
-            $(document).ready(function () {
-                var pageNum = 1;
-    
-                $("#search").click(function () {
-                    $("#result").html("");
-    
+
+            $(window).scroll(function () {
+
+                if (Math.ceil($(window).scrollTop()) + $(window).height() >= $(document).height()) {
+                    pageNum++;
+
+
                     $.ajax({
                         method: "GET",
                         url: "https://dapi.kakao.com/v3/search/book?target=title",
                         data: { query: $("#query").val(), page: pageNum },
                         headers: { Authorization: "KakaoAK f198d1d8b96d8e4ce4da79f58b1c6ca4" }
-    
+
                     })
                     .done(function (msg) {
-                        console.log(msg);
-    
-                        let res = document.querySelector("#result");
-    
-                        if(msg['documents'].length !== 0) {
-    
-                            for (var i = 0; i < 10; i++) {
-                                let div1 = document.createElement("div");
-                                div1.classList = "col p-3 border-bottom";
-    
-                                let div2 = document.createElement("div");
-                                div2.classList = "d-flex";
-                                
-                                let img = document.createElement("img");
-                                img.classList = 'result_image w-25 rounded';
-                                img.src = msg.documents[i].thumbnail;
-    
-                                let div3 = document.createElement("div");
-                                div3.classList = "ms-3";
-    
-                                let p1 = document.createElement("p");
-                                p1.classList = "h3";
-    
-                                let a = document.createElement("a");
-                                a.classList = "text-decoration-none text-black";
-                                a.href = msg.documents[i].url;
-                                a.textContent = msg.documents[i].title;
-                                a.target = "_blank";
-    
-                                p1.appendChild(a);
-    
-                                let p2 = document.createElement("p");
-                                p2.appendChild(document.createTextNode(msg.documents[i].authors));
-                                p2.appendChild(document.createElement("br"));
-                                p2.appendChild(document.createTextNode(msg.documents[i].publisher));
-                                p2.appendChild(document.createElement("br"));
-                                p2.appendChild(document.createTextNode(msg.documents[i].datetime.slice(0, 4)));
-    
-                                let btn = document.createElement("button");
-                                btn.type = "button";
-                                btn.classList = "btn btn-light text-nowrap";
-    
-                                let icon = document.createElement("i");
-                                icon.classList = "bi bi-arrow-right-circle me-2"
-    
-                                btn.appendChild(icon);
-                                btn.appendChild(document.createTextNode('독서기록장 쓰기'));
-    
-                                div3.appendChild(p1);
-                                div3.appendChild(p2);
-                                div3.appendChild(btn);
-    
-                                div2.appendChild(img);
-                                div2.appendChild(div3);
-    
-                                let p3 = document.createElement("p");
-                                p3.classList = "mt-3";
-                                p3.textContent = msg.documents[i].contents;
-                                if(msg.documents[i].contents.length >= 250) {
-                                    p3.textContent += "...";
-                                }
-    
-                                div1.appendChild(div2);
-                                div1.appendChild(p3);
-    
-                                res.appendChild(div1);
-                                
-                                btn.addEventListener("click", () => {
-                                localStorage.setItem("report_title", a.textContent);
-                                window.location.href = './report.html'; 
-                            })
-                            }
-                        }
-                        else {
-                            let p = document.createElement("p");
-                            p.textContent = "검색 결과가 없습니다.";
-                            p.classList = "mt-3";
-                            res.appendChild(p);
-                        }
+                        // console.log(msg);
+
+                        addResult(msg);
                     });
-                })
-    
-                $(window).scroll(function () {
-    
-                    if (Math.ceil($(window).scrollTop()) + $(window).height() >= $(document).height()) {
-                        pageNum++;
-    
-    
-                        $.ajax({
-                            method: "GET",
-                            url: "https://dapi.kakao.com/v3/search/book?target=title",
-                            data: { query: $("#query").val(), page: pageNum },
-                            headers: { Authorization: "KakaoAK f198d1d8b96d8e4ce4da79f58b1c6ca4" }
-    
-                        })
-                        .done(function (msg) {
-                            console.log(msg);
-    
-                            let res = document.querySelector("#result");
-    
-                        if(msg['documents'].length !== 0) {
-    
-                            for (var i = 0; i < 10; i++) {
-                                let div1 = document.createElement("div");
-                                div1.classList = "col p-3 border-bottom";
-    
-                                let div2 = document.createElement("div");
-                                div2.classList = "d-flex";
-                                
-                                let img = document.createElement("img");
-                                img.classList = 'result_image w-25 rounded';
-                                img.src = msg.documents[i].thumbnail;
-    
-                                let div3 = document.createElement("div");
-                                div3.classList = "ms-3";
-    
-                                let p1 = document.createElement("p");
-                                p1.classList = "h3";
-    
-                                let a = document.createElement("a");
-                                a.classList = "text-decoration-none text-black";
-                                a.href = msg.documents[i].url;
-                                a.textContent = msg.documents[i].title;
-                                a.target = "_blank";
-    
-                                p1.appendChild(a);
-    
-                                let p2 = document.createElement("p");
-                                p2.appendChild(document.createTextNode(msg.documents[i].authors));
-                                p2.appendChild(document.createElement("br"));
-                                p2.appendChild(document.createTextNode(msg.documents[i].publisher));
-                                p2.appendChild(document.createElement("br"));
-                                p2.appendChild(document.createTextNode(msg.documents[i].datetime.slice(0, 4)));
-    
-                                let btn = document.createElement("button");
-                                btn.type = "button";
-                                btn.classList = "btn btn-light text-nowrap";
-    
-                                let icon = document.createElement("i");
-                                icon.classList = "bi bi-arrow-right-circle me-2"
-    
-                                btn.appendChild(icon);
-                                btn.appendChild(document.createTextNode('독서기록장 쓰기'));
-    
-                                div3.appendChild(p1);
-                                div3.appendChild(p2);
-                                div3.appendChild(btn);
-    
-                                div2.appendChild(img);
-                                div2.appendChild(div3);
-    
-                                let p3 = document.createElement("p");
-                                p3.classList = "mt-3";
-                                p3.textContent = msg.documents[i].contents;
-                                if(msg.documents[i].contents.length >= 250) {
-                                    p3.textContent += "...";
-                                }
-    
-                                div1.appendChild(div2);
-                                div1.appendChild(p3);
-    
-                                res.appendChild(div1);
-                            
-                                btn.addEventListener("click", () => {
-                                    localStorage.setItem("report_title", a.textContent);
-                                    window.location.href = './report.html'; 
-                                })
-                            }
-                        }
-                        else {
-                            let p = document.createElement("p");
-                            p.textContent = "검색 결과가 없습니다.";
-                            p.classList = "mt-3";
-                            res.appendChild(p);
-                        }
-                    });
-    
+
                 }
-    
+
             });
         })
-    
-    
-        </script>
+
+
+    </script>
 </body>
 
 </html>
