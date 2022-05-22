@@ -11,7 +11,7 @@
 7. [연락처](#7-연락처)
 --------------
 ## 1. 프로젝트 설명
-Web app으로 HTML, Java Script, CSS, Bootstrap, jQuery, API, Ajax, git을 이용하여 제작했습니다. 
+Web app으로 HTML, Java Script, CSS, Bootstrap, jQuery, API, Ajax, git을 이용하여 제작했습니다. <br>
 독서 기록장 사이트로, 도서 추천, 도서 검색, 독서 기록 서비스를 제공합니다.
 ______________
 ## 2. 프로젝트 설치 방법
