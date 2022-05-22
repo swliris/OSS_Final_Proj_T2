@@ -143,9 +143,10 @@
                     p2.classList = "report_date justify-content-end";
                     p2.textContent = element.date;
 
-                    let p3 = document.createElement("p");
+                    let p3 = document.createElement("span");
                     p3.classList = "report_content";
                     p3.textContent = element.content;
+                    p3.style = "width: 100%; white-space: pre-line; text-overflow: none; word-break: break-all;"
 
                     button.appendChild(i);
                     div3.appendChild(p1);
