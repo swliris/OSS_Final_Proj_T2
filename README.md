@@ -55,6 +55,8 @@ _______________
     * 국립 중앙 도서관 사서 추천 API를 이용한 추천 도서 데이터 크롤링
     * README 작성
 
+<img width="20%" src="https://user-images.githubusercontent.com/100212793/169684753-031adcb9-116a-4198-8724-c731ff7e52eb.PNG"/>
+
 ### 최중현
 * 개발자 소개
     * 성균관대학교 소프트웨어학과 2학년 재학 중
@@ -66,7 +68,7 @@ _______________
 ## 7. 연락처
 임성우
 * [github](https://github.com/swliris)
-* e-mail :
+* e-mail : swliris@g.skku.edu
 
 채시헌
 * [github](https://github.com/SiHeonChae)
