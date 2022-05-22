@@ -77,32 +77,32 @@
             let reports = [];
 
             btn.addEventListener("click", () => {
-                let input_title = document.querySelector("#report_writing_title");
-                let input_content = document.querySelector("#report_writing_content");
+                let save_report = confirm("독서기록장을 저장하시겠습니까?");
+                if(save_report){
+                    let input_title = document.querySelector("#report_writing_title");
+                    let input_content = document.querySelector("#report_writing_content");
 
-                let today = new Date();
+                    let today = new Date();
 
-                let now_date = today.getFullYear() + ". " +
-                            (today.getMonth() + 1) + ". " + today.getDate() + ".";
+                    let now_date = today.getFullYear() + ". " +
+                                (today.getMonth() + 1) + ". " + today.getDate() + ".";
 
-                let report = {
-                    title: input_title.value,
-                    date: now_date,
-                    content: input_content.value
-                };
+                    let report = {
+                        title: input_title.value,
+                        date: now_date,
+                        content: input_content.value
+                    };
 
-                let prev = JSON.parse(localStorage.getItem("reports"));
-                if(prev) {
-                    prev.forEach(element => {
-                        reports.push(element);
-                    });
+                    let prev = JSON.parse(localStorage.getItem("reports"));
+                    if(prev) {
+                        prev.forEach(element => {
+                            reports.push(element);
+                        });
+                    }
+                    reports.push(report);
+                    localStorage.setItem("reports", JSON.stringify(reports));
+                    window.location.href = './index.html#report_container';
                 }
-                
-                reports.push(report);
-
-                localStorage.setItem("reports", JSON.stringify(reports));
-                
-                window.location.href = './index.html#report_container';
             });
 
         </script>
