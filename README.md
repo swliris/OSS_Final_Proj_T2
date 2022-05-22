@@ -15,13 +15,17 @@ Web app으로 HTML, Java Script, CSS, Bootstrap, jQuery, API, Ajax, git을 이�
 ______________
 ### 2. #프로젝트 설치 방법
 1) 터미널을 이용하여 로컬에 설치할 경로로 이동해줍니다.
+
 '''
-cd 설치할 경로
+$ cd 설치할 경로
 '''
+
 2) 아래의 코드를 복사 후 붙여넣어, 코드를 모두 다운로드 해줍니다.
+
 '''
-git clone git@github.com:swliris/OSS_Final_Proj_T2.git
+$ git clone git@github.com:swliris/OSS_Final_Proj_T2.git
 '''
+
 3) 해당 설치 경로에 'OSS_Final_Proj_T2' 라는 이름의 폴더가 생겼다면, 설치에 성공한 것 입니다!
 ______________
 ### 3. #프로젝트 사용 방법
@@ -31,7 +35,28 @@ _______________
 
 _______________
 ### 5. #개발자
-<img width="50%" src="https://user-images.githubusercontent.com/100212793/169680886-47f8ac32-6052-4a06-a6a7-d13b5f47a464.PNG"/>
+<img width="20%" src="https://user-images.githubusercontent.com/100212793/169681362-9164ff1c-c718-4a74-8a92-f07b01b2d563.png"/>
 
+##### 임성우 (Leader)
+* 개발자 소개
+    * 성균관대학교 소프트웨어학과 2학년 재학 중
+* 프로젝트에서 맡은 부분
+
+<img width="20%" src="https://user-images.githubusercontent.com/100212793/169680886-47f8ac32-6052-4a06-a6a7-d13b5f47a464.PNG"/>
+
+##### 채시헌
+* 개발자 소개
+    * 성균관대학교 소프트웨어학과 2학년 재학 중
+    * 소프트웨어학과 알리미 11기 회장
+    * 산학협력 프로젝트 - Computer Vision을 이용한 사람의 포즈 인식 (LG U+)
+* 프로젝트에서 맡은 부분
+    * Back-end
+    * 국립 중앙 도서관 사서 추천 API를 이용한 추천 도서 데이터 크롤링
+    * README 작성
+
+##### 최중현
+* 개발자 소개
+    * 성균관대학교 소프트웨어학과 2학년 재학 중
+* 프로젝트에서 맡은 부분
 _______________
 ### 6. #라이센스
