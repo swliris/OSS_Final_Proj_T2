@@ -15,6 +15,7 @@ Web app으로 HTML, Java Script, CSS, Bootstrap, jQuery, API, Ajax, git을 이�
 
 ______________
 ## 2. 프로젝트 설치 방법
+### A. Local 환경에 설치하기
 a. 터미널을 이용하여 로컬에 설치할 경로로 이동해줍니다.
 
 ```
@@ -28,6 +29,8 @@ $ git clone git@github.com:swliris/OSS_Final_Proj_T2.git
 ```
 
 c. 해당 설치 경로에 'OSS_Final_Proj_T2' 라는 이름의 폴더가 생겼다면, 설치에 성공한 것 입니다!
+### B. Web 접속하기
+[여기](https://swliris.github.io/OSS_Final_Proj_T2/)로 접속합니다.
 ______________
 ## 3. 프로젝트 사용 방법
 1.	인터페이스(메인 화면)  
