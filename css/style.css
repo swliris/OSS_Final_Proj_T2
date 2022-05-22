@@ -20,7 +20,7 @@ button:focus {
 
 #search_container {
     height: 40%;
-    background-image: url("./source/library.jpg");
+    background-image: url("../source/library.jpg");
     background-color: #00000055;
     background-blend-mode: multiply;
     background-size: cover;
