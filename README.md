@@ -54,7 +54,13 @@ _______________
 ### 임성우 (Leader)
 * 개발자 소개
     * 성균관대학교 소프트웨어학과 2학년 재학 중
+    * 2022 하계 산학협력 프로젝트 진행 중
 * 프로젝트에서 맡은 부분
+    * 프로젝트 총괄
+    * Front-end (Design & html, css)
+    * js
+        * api 등을 통해 가져온 데이터 → 웹 페이지 적용
+        * localStorage 관련
 
 <img width="20%" src="https://user-images.githubusercontent.com/100212793/169680886-47f8ac32-6052-4a06-a6a7-d13b5f47a464.PNG"/>
 
