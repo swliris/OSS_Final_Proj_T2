@@ -105,7 +105,7 @@
         <script>
             window.addEventListener("load", () => {
                 let lastReports = localStorage.getItem("reports");
-                if(!lastReports) {
+                if(lastReports.length === 2) {
                     let no_report = document.createElement("p");
                     no_report.classList = "my-5";
                     no_report.textContent = "등록된 독서기록장이 없습니다. 오른쪽 위 버튼을 눌러 첫 기록장을 작성해 보세요!";
