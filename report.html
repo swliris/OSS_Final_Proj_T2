@@ -117,13 +117,13 @@
                             content: input_content.value
                         };
 
+                        reports.push(report);
                         let prev = JSON.parse(localStorage.getItem("reports"));
                         if(prev) {
-                            prev.forEach(element => {
+                            prev.reverse().forEach(element => {
                                 reports.push(element);
                             });
                         }
-                        reports.push(report);
                         localStorage.setItem("reports", JSON.stringify(reports));
                         window.location.href = './index.html#report_container';
                     }
