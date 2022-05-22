@@ -33,7 +33,20 @@ ______________
 
 _______________
 ## 4. 파일 목록
-
+* OSS_Final_Proj_T2
+    * css
+        * style_report.css - report.html의 css파일
+        * style_search.css - search.html의 css파일
+        * style.css - index.html의 css파일
+    * html
+        * index.html - 기본 페이지
+        * report.html - 독서기록장 작성 페이지
+        * search.html - 검색 결과 페이지
+    * source
+        * favicon.ico - 웹페이지 옆 작은 로고 사진
+        * library.jpg - 검색창 뒤 배경사진
+    * .gitignore - DS_store 무시
+    * README.md - 프로젝트 관련 내용
 _______________
 ## 5. 개발자
 <img width="20%" src="https://user-images.githubusercontent.com/100212793/169682252-33c86f98-8bbf-4c56-b172-52bea0bf2694.png"/>
