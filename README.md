@@ -34,19 +34,19 @@ ______________
 _______________
 ## 4. 파일 목록
 * OSS_Final_Proj_T2
+    * index.html - 기본 페이지
+    * report.html - 독서기록장 작성 페이지
+    * search.html - 검색 결과 페이지
+    * .gitignore - DS_store 무시
+    * README.md - 프로젝트 관련 내용
+    * LICENSE - MIT라이센스
     * css
         * style_report.css - report.html의 css파일
         * style_search.css - search.html의 css파일
         * style.css - index.html의 css파일
-    * html
-        * index.html - 기본 페이지
-        * report.html - 독서기록장 작성 페이지
-        * search.html - 검색 결과 페이지
     * source
         * favicon.ico - 웹페이지 옆 작은 로고 사진
         * library.jpg - 검색창 뒤 배경사진
-    * .gitignore - DS_store 무시
-    * README.md - 프로젝트 관련 내용
 _______________
 ## 5. 개발자
 <img width="20%" src="https://user-images.githubusercontent.com/100212793/169682252-33c86f98-8bbf-4c56-b172-52bea0bf2694.png"/>
@@ -61,6 +61,7 @@ _______________
     * js
         * api 등을 통해 가져온 데이터 → 웹 페이지 적용
         * localStorage 관련
+    * README 작성
 
 <img width="20%" src="https://user-images.githubusercontent.com/100212793/169680886-47f8ac32-6052-4a06-a6a7-d13b5f47a464.PNG"/>
 
@@ -71,7 +72,9 @@ _______________
     * 산학협력 프로젝트 - Computer Vision을 이용한 사람의 포즈 인식 (LG U+)
 * 프로젝트에서 맡은 부분
     * Back-end
-    * 국립 중앙 도서관 사서 추천 API를 이용한 추천 도서 데이터 크롤링
+    * js
+        * popup 창 컨트롤
+        * 국립 중앙 도서관 사서 추천 API, jQuery, Ajax를 이용한 사서 추천 도서 데이터 크롤링
     * README 작성
 
 <img width="20%" src="https://user-images.githubusercontent.com/100212793/169684753-031adcb9-116a-4198-8724-c731ff7e52eb.PNG"/>
@@ -79,7 +82,12 @@ _______________
 ### 최중현
 * 개발자 소개
     * 성균관대학교 소프트웨어학과 2학년 재학 중
+    * 소프트웨어융합대학 5,6대 학생회
+    * (전) 알고리즘 동아리 NPC, 정보보안 동아리 HIT
 * 프로젝트에서 맡은 부분
+    * Back-end
+    * Kakao 도서검색 API, jQuery, Ajax를 이용하여 도서 검색, 스크롤 구현
+    * README 작성
 _______________
 ## 6. 라이선스
 이 프로젝트는 MIT 라이선스 조건에 따라 라이선스가 부여됩니다.
