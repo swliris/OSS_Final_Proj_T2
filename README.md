@@ -39,6 +39,7 @@ _______________
     * search.html - 검색 결과 페이지
     * .gitignore - DS_store 무시
     * README.md - 프로젝트 관련 내용
+    * LICENSE - MIT라이센스
     * css
         * style_report.css - report.html의 css파일
         * style_search.css - search.html의 css파일
