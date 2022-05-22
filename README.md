@@ -65,7 +65,7 @@ _______________
 _______________
 ## 7. 연락처
 임성우
-* [github]()
+* [github](https://github.com/swliris)
 * e-mail :
 
 채시헌
@@ -73,5 +73,5 @@ _______________
 * e-mail : sean1106@g.skku.edu
 
 최중현
-* [github]()
-* e-mail :
+* [github](https://github.com/Choi-Jung-Hyeon)
+* e-mail : fourmi103@g.skku.edu
